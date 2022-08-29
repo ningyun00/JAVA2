@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd"><!--配置信息-->
+<configuration>
+    <!--配置环境-->
+    <environments default="development">
+        <!--配置开发环境-->
+        <environment id="development">
+            <!--事务处理
+                type:jdbc：使用jdbc原本的事务处理
+            -->
+            <transactionManager type="JDBC" />
+            <!--数据源的配置-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/test" />
+                <property name="username" value="root" />
+                <property name="password" value="root" />
+            </dataSource>
+        </environment>
+        <!--配置测试环境-->
+        <environment id="test">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/test" />
+                <property name="username" value="root" />
+                <property name="password" value="root" />
+            </dataSource>
+        </environment>
+        <!--配置生产环境-->
+        <environment id="produce">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/test" />
+                <property name="username" value="root" />
+                <property name="password" value="root" />
+            </dataSource>
+        </environment>
+    </environments>
+    <!--引入-->
+    <mappers>
+        <mapper resource="MyTestMapper.xml" />
+    </mappers>
+</configuration>    

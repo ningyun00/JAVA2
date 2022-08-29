@@ -1,0 +1,81 @@
+作业一：将上课的案例重写一遍(注意：不是复制，要自己顺一遍)
+
+作业二：用工厂模式设计支付业务场景，包含跨境支付，支付宝、微信、银联支付
+1、创建一个IPayMethod 支付方式的接口，有三个抽象方法prePay、pay、afterPay
+2、创建四个类(InternationalPayMethod、ZfbPayMethod、WechatPayMethod、UnionPayMethod、)实现IPayMethod 接口，同时重写方法三个方法
+3、创建测试类，注意测试类不直接和四个实现类有关联，不能测试类中创建对象，要求使用工厂模式的方式创建四个类的对象
+
+作业三：抄写下面的内容(抄本子上)
+枚举
+枚举的概念
+枚举是一种用来表示固定个数值的引用数据类型,例如性别,季节,方向等等这些数据都是有固定个数数值的,java中的枚举是有固定个数对象的"特殊类"。
+
+定义枚举的格式
+public enum 枚举名 {
+    // 第一行都是罗列枚举实例,这些枚举实例直接写大写名字即可。
+    实例,实例,实例,...；
+}
+
+枚举的使用
+定义枚举：BOY表示男，GIRL表示女
+enum Sex {
+    BOY, GIRL; // 男，女
+}
+Perosn中的性别有String类型改为Sex枚举类型
+public class Person {
+    private String name;
+    private Sex sex;
+
+    public Person() {
+    }
+
+    public Person(String name, Sex sex) {
+        this.name = name;
+        this.sex = sex;
+    }
+    // 省略get/set/toString方法
+}
+使用是只能传入枚举中的固定值
+public class Demo02 {
+    public static void main(String[] args) {
+        // 使用枚举格式: 枚举类型.枚举值
+        Person p1 = new Person("张三", Sex.BOY);
+        Person p2 = new Person("张三", Sex.GIRL);
+        Person p3 = new Person("张三", "abc");// 编译报错
+    }
+}
+
+
+枚举的本质其实就是一个使用了多例设计模式的类，所以枚举中还可以有成员变量，成员方法等
+public enum Sex {
+//    BOY,GIRL,YAO;
+    //此处的枚举值必须调用对应构造器来创建
+    BOY("男"),GIRL("女");
+
+    //如果要给枚举的属性赋值，必须通过枚举构造方法先传递值
+    //枚举的属性
+    public String sex;
+    //枚举中的普通方法
+    public void showSex(){
+        System.out.println("性别为："+sex);
+    }
+    //默认有无参构造方法
+    Sex(){}
+    //枚举的构造方法，当枚举中只有有参构造方法后，枚举中无参构造方法失效了
+    //可以通过有参构造方法，给枚举类的属性赋值
+    Sex(String sex) {
+        this.sex = sex;
+}
+
+工厂模式：
+什么是工厂模式
+工厂模式（Factory Pattern）是 Java 中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。之前我们创建类对象时, 都是使用new 对象的形式创建, 除new 对象方式以外, 工厂模式也可以创建对象.
+
+耦合度: 类与类之间的关系,如果关系比较强,高耦合,  如果关系比较弱,低耦合
+
+工厂模式的作用
+将前端代码与要创建的对象分开，前端不需要直接创建对象，也就不需要关心创建对象时需要的数据。只需要通过工厂类获取对象即可。
+- 解决类与类之间的耦合问题
+
+总结：
+工厂模式的存在可以改变创建类的对象的方式,解决类与类之间的耦合

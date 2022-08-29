@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.ning.mapper.UsersMapper">
+    <select id = "userFindType" resultMap="userFindType">
+        SELECT u.id, u.name, u.sex, u.type utype, t.id tid, t.uId tuid, t.type from users u INNER JOIN types t on u.type =  t.uId
+    </select>
+    <resultMap id = "userFindType" type = "com.ning.entity.Users">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="type" column="utype"/>
+        <association property = "types" javaType="com.ning.entity.Types" column="utype" select="Types"/>
+    </resultMap>
+    <select id = "Types" parameterType="java.lang.Integer" resultMap="types">
+        SELECT id, uId, type FROM types where types.id = #{utype}
+    </select>
+    <resultMap id = "types" type = "com.ning.entity.Types">
+        <id property="id" column="id"/>
+        <result property="uId" column="uId"/>
+        <result property="type" column="type"/>
+    </resultMap>
+    <!--<select id = "userFindTypes" resultMap="userFindTypes"></select>-->
+</mapper>

@@ -1,0 +1,39 @@
+package com.ning.test;
+
+import com.ning.entity.User;
+import com.ning.inter.MyUnit;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+/**
+ * @author 寜
+ * @date 2022-08-30
+ * @time 下午 06:28
+ */
+public class Test {
+    /*
+        作业一：
+    模拟完成Junit的@Test的使用
+    步骤：
+    模拟Junit测试的注释@Test
+    1.首先需要编写自定义注解@MyUnit，并添加元注解，保证自定义注解 只能修饰方法，且在运行时可以获得。
+    2. 然后编写目标类（测试类），然后给目标方法（测试方法）,编写三个方法, 使用@MyUnit注解， 其中两个加上@MyUnit注解。
+    3. 最后编写调用类，使用main方法调用目标类，模拟Junit的运行，只要有@MyUnit注释的方法都会 运行。
+    */
+    @org.junit.Test
+    public  void main() throws Exception {
+        Class<User> aClass = User.class;
+        Method ning1 = aClass.getMethod("ning1");
+        Method ning2 = aClass.getMethod("ning2");
+        Method ning3 = aClass.getMethod("ning3");
+        Class myUnitClassy = com.ning.inter.MyUnit.class;
+        if (ning1.isAnnotationPresent(myUnitClassy)) {
+            MyUnit myUnit = (MyUnit) ning1.getAnnotation(myUnitClassy);
+            User user = aClass.newInstance();
+            ning1.invoke(user);
+            System.out.println(myUnit.name());
+        }
+    }
+}

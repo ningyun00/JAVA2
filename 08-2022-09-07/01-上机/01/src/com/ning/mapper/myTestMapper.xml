@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?><!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.ning.mapper.MyTestMapper">
+    <select id = "queryMyTest" resultType = "com.ning.entity.MyTest">
+        SELECT *
+        FROM MyTest
+    </select>
+    <select id = "queryIdMyTest" resultType = "com.ning.entity.MyTest" parameterType = "java.lang.Integer">
+        SELECT *
+        FROM MyTest
+        WHERE id = #{id}
+    </select>
+    <select id = "queryLikeMyTest" resultType = "com.ning.entity.MyTest" parameterType = "java.lang.String">
+        SELECT *
+        FROM MyTest
+        WHERE name LIKE #{name}
+    </select>
+    <insert id = "insertMyTest" parameterType = "com.ning.entity.MyTest">
+        INSERT INTO MyTest (id, name, type, price)
+        values (#{id}, #{name}, #{type}, #{price});
+    </insert>
+    <update id = "updateMyTest" parameterType = "com.ning.entity.MyTest">
+        update MyTest
+        SET id=#{id},
+            name=#{name},
+            type=#{type},
+            price=#{price}
+        WHERE id = #{id}
+    </update>
+    <delete id = "deleteIdMyTest" parameterType="java.lang.Integer">
+        DELETE FROM MyTest WHERE id = #{id}
+    </delete>
+</mapper>

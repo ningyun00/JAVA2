@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "test">
+    <select id = "query" resultType="com.ning.entity.MyTest">
+        SELECT * FROM MyTest
+    </select>
+    <insert id = "insert" parameterType="com.ning.entity.MyTest">
+        INSERT INTO MyTest (id,name,type,price) values(#{id},#{name},#{type},#{price})
+    </insert>
+</mapper>

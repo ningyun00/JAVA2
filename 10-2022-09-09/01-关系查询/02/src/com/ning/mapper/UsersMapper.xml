@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.ning.mapper.UsersMapper">
+    <!--一对一-->
+    <select id = "usersFindType" resultMap = "UsersGoToType">
+        SELECT u.`id`, u.`name`, u.`sex`, u.`type`, t.`id`, t.`uId`, t.`type`
+        FROM users u
+                 INNER JOIN TYPES t ON u.`id` = t.`uId`
+    </select>
+    <resultMap id = "UsersGoToType" type = "com.ning.entity.Users">
+        <id property = "id" column = "id"/>
+        <result property = "name" column = "name"/>
+        <result property = "sex" column = "sex"/>
+        <result property = "type" column = "type"/>
+        <association property = "types" javaType = "com.ning.entity.Types">
+            <id property = "id" column = "id"/>
+            <result property = "uId" column = "uId"/>
+            <result property = "type" column = "type"/>
+        </association>
+    </resultMap>
+    <!--多对多-->
+    <select id = "usersFindTypes" resultMap = "usersGoToType">
+        SELECT u.`id`, u.`name`, u.`sex`, u.`type`, t.`id` tId, t.`uId`, t.`type` tType
+        FROM users u
+                 INNER JOIN TYPES t ON u.`id` = t.`uId`
+    </select>
+    <!--建议当数据库字段出现重复列名时建议取别名否则无法取值-->
+    <resultMap id = "usersGoToType" type = "com.ning.entity.Users">
+        <!--id 与上resultMap值相同，type返回类别-->
+        <id property = "id" column = "id"/>
+        <result property = "name" column = "name"/>
+        <result property = "sex" column = "sex"/>
+        <result property = "type" column = "type"/>
+        <collection property = "typesList" ofType = "com.ning.entity.Types">
+            <!--collection多条，property实体代理，ofType返回集合中的泛型-->
+            <id property = "id" column = "tId"/>
+            <result property = "uId" column = "uId"/>
+            <result property = "type" column = "tType"/>
+        </collection>
+    </resultMap>
+</mapper>

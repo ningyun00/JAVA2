@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.ning.mapper.OrdersMapper">
+    <select id = "query" resultType = "com.ning.entity.Orders">
+        select *
+        from orders
+    </select>
+    <select id = "findAll" resultMap = "UsersOrders">
+        SELECT o.`id`,
+               o.`user_id`,
+               o.`number`,
+               o.`createtime`,
+               o.`note`,
+               u.`id`,
+               u.`username`,
+               u.`sex`,
+               u.`birthday`,
+               u.`address`
+        FROM orders o
+                 INNER JOIN users u ON o.`user_id` = u.`id`
+    </select>
+    <resultMap id = "UsersOrders" type = "com.ning.entity.Orders">
+        <id property = "id" column = "id"/>
+        <result property = "userId" column = "user_id"/>
+        <result property = "number" column = "number"/>
+        <result property = "createTime" column = "createtime"/>
+        <result property = "note" column = "note"/>
+        <collection property = "users" ofType = "com.ning.entity.Users">
+            <id property = "id" column = "id"/>
+            <result property = "username" column = "username"/>
+            <result property = "sex" column = "sex"/>
+            <result property = "birthday" column = "birthday"/>
+            <result property = "address" column = "address"/>
+        </collection>
+    </resultMap>
+    <select id = "findOrders" resultMap = "usersFindOrders">
+        SELECT u.`id`,
+               u.`username`,
+               u.`sex`,
+               u.`birthday`,
+               u.`address`,
+               o.`id`,
+               o.`user_id`,
+               o.`number`,
+               o.`createtime`,
+               o.`note`
+        FROM users u
+                 INNER JOIN orders o ON u.`id` = o.`user_id`
+    </select>
+    <resultMap id = "usersFindOrders" type= "com.ning.entity.Users">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birthday"/>
+        <result property="address" column="address"/>
+        <collection property = "orders" ofType="com.ning.entity.Orders">
+            <id property="id" column="id"/>
+            <result property="userId" column="user_id"/>
+            <result property="number" column="number"/>
+            <result property="createTime" column="createtime"/>
+            <result property="note" column="note"/>
+        </collection>
+    </resultMap>
+</mapper>
